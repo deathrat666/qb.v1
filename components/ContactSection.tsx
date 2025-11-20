@@ -30,25 +30,33 @@ const ContactSection: React.FC = () => {
 
   return (
     <section id="contact" className="relative py-20 sm:py-32 px-4 overflow-hidden">
-      {/* Centered vertical beam to run behind the form and fade near the footer */}
-      <div className="absolute inset-0 flex justify-center z-0 pointer-events-none">
+      {/* Vertical energy spine tying header to footer */}
+      <div className="pointer-events-none absolute inset-0 flex justify-center z-0">
         <div
-          className="absolute left-1/2 -translate-x-1/2 top-0 w-[78%] md:w-[58%] h-[95%] blur-3xl"
+          className="absolute top-0 left-1/2 -translate-x-1/2 h-full w-[2px]"
           style={{
-            background: 'linear-gradient(180deg, rgba(0,85,255,0.8) 0%, rgba(0,85,255,0.3) 80%, rgba(0,85,255,0) 100%)'
+            background: 'linear-gradient(180deg, rgba(59,130,246,0) 0%, rgba(59,130,246,0.85) 20%, rgba(59,130,246,1) 55%, rgba(59,130,246,0.85) 90%, rgba(59,130,246,0.4) 100%)',
+            boxShadow: '0 0 55px 20px rgba(59,130,246,0.35)'
+          }}
+        />
+        <div
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 w-32 h-16"
+          style={{
+            background: 'radial-gradient(ellipse at center, rgba(59,130,246,0.45) 0%, rgba(59,130,246,0.15) 60%, rgba(59,130,246,0) 100%)',
+            filter: 'blur(8px)'
           }}
         />
       </div>
-      {/* Background LaserFlow - Vertical Blue Beam */}
-      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none opacity-45 mix-blend-screen">
+      {/* Background LaserFlow - keep subtle motion without washing out */}
+      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none opacity-35 mix-blend-screen">
         <LaserFlow 
             color="#3B82F6"
             horizontalBeamOffset={0.0}
             verticalBeamOffset={0.0}
-            wispDensity={1.5}
+            wispDensity={1.2}
             flowSpeed={0.4}
             horizontalSizing={0.01}
-            verticalSizing={12}
+            verticalSizing={10}
         />
       </div>
 
@@ -56,7 +64,7 @@ const ContactSection: React.FC = () => {
         <AnimatedElement>
           <h2 className="font-orbitron text-3xl sm:text-4xl font-bold text-foreground drop-shadow-lg">Ready to Build Your AI Website?</h2>
           <p className="mt-4 text-lg text-muted-foreground drop-shadow-md">
-            Tell us what you want to build and we’ll design an intelligent system around it.
+            Tell us what you want to build and we'll design an intelligent system around it.
           </p>
         </AnimatedElement>
         <AnimatedElement delay={200} variant="zoomIn">
