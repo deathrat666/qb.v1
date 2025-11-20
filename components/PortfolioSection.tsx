@@ -104,9 +104,9 @@ const PortfolioSection: React.FC = () => {
     },
     {
       id: 3,
-      title: "BNET 339",
+      title: "BNet AI News",
       subtitle: "Centralized control hub for managing multi-agent autonomous workflows.",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
+      image: "/BNet AI News Project presentation.png",
       isReal: true,
       link: "https://bnet339.com/"
     },
