@@ -98,7 +98,7 @@ const PortfolioSection: React.FC = () => {
       id: 2,
       title: "Psychotherapist Teodora Herteg",
       subtitle: "Professional portfolio and booking platform for mental health services.",
-      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop",
+      image: "/Psychotherapist Teodora Herteg Project presentation.png",
       isReal: true,
       link: "https://psihoterapeut-teodoraherteg.com/"
     },
