@@ -30,8 +30,17 @@ const ContactSection: React.FC = () => {
 
   return (
     <section id="contact" className="relative py-20 sm:py-32 px-4 overflow-hidden">
+      {/* Centered vertical beam to run behind the form and fade near the footer */}
+      <div className="absolute inset-0 flex justify-center z-0 pointer-events-none">
+        <div
+          className="absolute left-1/2 -translate-x-1/2 top-0 w-[78%] md:w-[58%] h-[95%] blur-3xl"
+          style={{
+            background: 'linear-gradient(180deg, rgba(0,85,255,0.8) 0%, rgba(0,85,255,0.3) 80%, rgba(0,85,255,0) 100%)'
+          }}
+        />
+      </div>
       {/* Background LaserFlow - Vertical Blue Beam */}
-      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none opacity-40 mix-blend-screen">
+      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none opacity-45 mix-blend-screen">
         <LaserFlow 
             color="#3B82F6"
             horizontalBeamOffset={0.0}
@@ -39,7 +48,7 @@ const ContactSection: React.FC = () => {
             wispDensity={1.5}
             flowSpeed={0.4}
             horizontalSizing={0.01}
-            verticalSizing={10}
+            verticalSizing={12}
         />
       </div>
 
@@ -92,3 +101,4 @@ const ContactSection: React.FC = () => {
 };
 
 export default ContactSection;
+
