@@ -68,7 +68,7 @@ const ContactSection: React.FC = () => {
         />
       </div>
       {/* Centered logo hovering above footer */}
-      <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-16 z-10">
+      <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-8 z-10">
         <img
           src="/qbyte it logo.webp"
           alt="QByte IT"
