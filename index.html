@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Primary Meta Tags -->
+    <title>QByte IT – The AI Web Agency | AI-Powered Websites & Automation</title>
+    <meta name="description" content="QByte IT builds AI-powered websites that think: intelligent design, content autopilot, AI chatbots, and digital automation systems." />
+    <meta name="keywords" content="AI Web Agency, AI Websites, Automation, Web Design, SEO, Chatbots, QByte IT">
+    <meta name="author" content="QByte IT">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.qbyteit.com/" />
+    <meta property="og:title" content="QByte IT – The AI Web Agency | AI-Powered Websites & Automation" />
+    <meta property="og:description" content="QByte IT builds AI-powered websites that think: intelligent design, content autopilot, AI chatbots, and digital automation systems." />
+    <meta property="og:image" content="https://picsum.photos/seed/qbyte/1200/630" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://www.qbyteit.com/" />
+    <meta property="twitter:title" content="QByte IT – The AI Web Agency | AI-Powered Websites & Automation" />
+    <meta property="twitter:description" content="QByte IT builds AI-powered websites that think: intelligent design, content autopilot, AI chatbots, and digital automation systems." />
+    <meta property="twitter:image" content="https://picsum.photos/seed/qbyte/1200/630" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Orbitron:wght@700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet"></noscript>
+
+    <!-- Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" charset="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" /> 
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style type="text/tailwindcss">
+      @layer base {
+        :root {
+          --background: 0 0% 100%;
+          --foreground: 222.2 84% 4.9%;
+
+          --card: 0 0% 100%;
+          --card-foreground: 222.2 84% 4.9%;
+ 
+          --popover: 0 0% 100%;
+          --popover-foreground: 222.2 84% 4.9%;
+ 
+          --primary: 210.3 100% 35.1%;
+          --primary-foreground: 210 40% 98%;
+ 
+          --secondary: 326.6 100% 45.1%;
+          --secondary-foreground: 210 40% 98%;
+ 
+          --muted: 210 40% 96.1%;
+          --muted-foreground: 215.4 16.3% 46.9%;
+ 
+          --accent: 210 40% 96.1%;
+          --accent-foreground: 222.2 47.4% 11.2%;
+ 
+          --destructive: 0 84.2% 60.2%;
+          --destructive-foreground: 210 40% 98%;
+
+          --border: 214.3 31.8% 91.4%;
+          --input: 214.3 31.8% 91.4%;
+          --ring: 222.2 84% 4.9%;
+ 
+          --radius: 0.5rem;
+
+          /* Colors for AuroraBackground component */
+          --white: #ffffff;
+          --black: #000000;
+          --blue-500: #3b82f6;
+          --indigo-300: #a5b4fc;
+          --blue-300: #93c5fd;
+          --violet-200: #ddd6fe;
+          --blue-400: #60a5fa;
+          --zinc-50: #f9fafb;
+          --zinc-900: #18181b;
+          --slate-950: #020617;
+        }
+ 
+        .dark {
+          --background: 222.2 84% 4.9%;
+          --foreground: 210 40% 98%;
+
+          --card: 222.2 84% 4.9%;
+          --card-foreground: 210 40% 98%;
+ 
+          --popover: 222.2 84% 4.9%;
+          --popover-foreground: 210 40% 98%;
+ 
+          --primary: 210.3 100% 35.1%;
+          --primary-foreground: 210 40% 98%;
+ 
+          --secondary: 326.6 100% 45.1%;
+          --secondary-foreground: 210 40% 98%;
+ 
+          --muted: 217.2 32.6% 17.5%;
+          --muted-foreground: 215 20.2% 65.1%;
+ 
+          --accent: 217.2 32.6% 17.5%;
+          --accent-foreground: 210 40% 98%;
+ 
+          --destructive: 0 62.8% 30.6%;
+          --destructive-foreground: 210 40% 98%;
+
+          --border: 217.2 32.6% 17.5%;
+          --input: 217.2 32.6% 17.5%;
+          --ring: 212.7 91.1% 59.8%;
+        }
+      }
+    </style>
+
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              orbitron: ['Orbitron', 'sans-serif'],
+            },
+            colors: {
+                border: 'hsl(var(--border))',
+                input: 'hsl(var(--input))',
+                ring: 'hsl(var(--ring))',
+                background: 'hsl(var(--background))',
+                foreground: 'hsl(var(--foreground))',
+                primary: {
+                  DEFAULT: 'hsl(var(--primary))',
+                  foreground: 'hsl(var(--primary-foreground))',
+                },
+                secondary: {
+                  DEFAULT: 'hsl(var(--secondary))',
+                  foreground: 'hsl(var(--secondary-foreground))',
+                },
+                destructive: {
+                  DEFAULT: 'hsl(var(--destructive))',
+                  foreground: 'hsl(var(--destructive-foreground))',
+                },
+                muted: {
+                  DEFAULT: 'hsl(var(--muted))',
+                  foreground: 'hsl(var(--muted-foreground))',
+                },
+                accent: {
+                  DEFAULT: 'hsl(var(--accent))',
+                  foreground: 'hsl(var(--accent-foreground))',
+                },
+                popover: {
+                  DEFAULT: 'hsl(var(--popover))',
+                  foreground: 'hsl(var(--popover-foreground))',
+                },
+                card: {
+                  DEFAULT: 'hsl(var(--card))',
+                  foreground: 'hsl(var(--card-foreground))',
+                },
+                 // Legacy colors
+                'brand-cobalt': '#0047AB',
+                'brand-magenta': '#E6007E',
+                'brand-charcoal': '#0a0a10',
+            },
+            borderRadius: {
+              lg: `var(--radius)`,
+              md: `calc(var(--radius) - 2px)`,
+              sm: `calc(var(--radius) - 4px)`,
+            },
+            backgroundImage: {
+              'linear-to-r': 'linear-gradient(to right, hsl(var(--background)), transparent)',
+              'linear-to-l': 'linear-gradient(to left, hsl(var(--background)), transparent)',
+            },
+            backgroundSize: {
+              '200%': '200%',
+              '4x': '400% 400%',
+            },
+            backgroundPosition: {
+              'pos-0': '0% 0%',
+              'pos-100': '100% 0%',
+            },
+            animation: {
+              'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+              'gradient-bg': 'gradient-bg 25s ease infinite',
+              'button-glow': 'buttonGlow 4s ease-in-out infinite',
+              'float': 'float 15s ease-in-out infinite',
+              'shimmer': 'shimmer 1.5s ease-out infinite',
+              'infinite-scroll': 'infinite-scroll 50s linear infinite',
+              'aurora': 'aurora 60s linear infinite',
+            },
+            keyframes: {
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              'gradient-bg': {
+                '0%': { backgroundPosition: '0% 50%' },
+                '25%': { backgroundPosition: '50% 0%' },
+                '50%': { backgroundPosition: '100% 50%' },
+                '75%': { backgroundPosition: '50% 100%' },
+                '100%': { backgroundPosition: '0% 50%' },
+              },
+              buttonGlow: {
+                '0%': { boxShadow: '0 0 5px hsl(var(--secondary)), 0 0 10px hsl(var(--secondary))' },
+                '50%': { boxShadow: '0 0 10px hsl(var(--primary)), 0 0 20px hsl(var(--primary))' },
+                '100%': { boxShadow: '0 0 5px hsl(var(--secondary)), 0 0 10px hsl(var(--secondary))' },
+              },
+              float: {
+                '0%, 100%': { transform: 'translate(0px, 0px) rotate(0deg)' },
+                '50%': { transform: 'translate(-30px, 20px) rotate(10deg)' },
+              },
+              shimmer: {
+                '100%': { transform: 'translateX(100%)' },
+              },
+              'infinite-scroll': {
+                'from': { transform: 'translateX(0)' },
+                'to': { transform: 'translateX(-50%)' },
+              },
+              aurora: {
+                from: {
+                  backgroundPosition: "50% 50%, 50% 50%",
+                },
+                to: {
+                  backgroundPosition: "350% 50%, 350% 50%",
+                },
+              },
+            },
+          },
+        },
+      }
+    </script>
+    
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "QByte IT – The AI Web Agency",
+      "url": "https://www.qbyteit.com/",
+      "logo": "https://picsum.photos/seed/qbyte-logo/200/200",
+      "description": "We build websites that think. QByte IT creates AI-powered web systems that design, write, and grow alongside your business.",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "contact@qbyte-it.com"
+      }
+    }
+    </script>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "clsx": "https://esm.sh/clsx@2.1.1",
+    "tailwind-merge": "https://esm.sh/tailwind-merge@2.3.0",
+    "@radix-ui/react-slot": "https://esm.sh/@radix-ui/react-slot@1.1.0?external=react",
+    "class-variance-authority": "https://esm.sh/class-variance-authority@0.7.0",
+    "framer-motion": "https://esm.sh/framer-motion@11.2.1?external=react",
+    "lucide-react": "https://esm.sh/lucide-react@0.400.0?external=react",
+    "ogl": "https://esm.sh/ogl@1.0.11",
+    "three": "https://esm.sh/three@0.160.0",
+    "react-slick": "https://esm.sh/react-slick@0.30.2?external=react,react-dom"
+  }
+}
+</script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
