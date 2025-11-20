@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import AnimatedElement from './AnimatedElement';
 import { LiquidButton } from './ui/liquid-glass-button';
-import LaserFlow from './LaserFlow';
 
 const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -46,44 +45,16 @@ const ContactSection: React.FC = () => {
   };
   
   // Theme-aware input styles
-  const inputClasses = "w-full bg-background/50 backdrop-blur-md border border-border rounded-lg py-3 px-4 text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300";
+  const inputClasses = "w-full bg-white border border-[#E2E8F0] rounded-lg py-3 px-4 text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-200 focus:border-sky-300 transition-all duration-300";
 
   return (
-    <section id="contact" className="relative py-20 sm:py-32 px-4 overflow-hidden">
-      {/* Laser-inspired spine with fogged base (reactbits.dev/animations/laser-flow reference) */}
-      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
+    <section id="contact" className="relative py-20 sm:py-32 px-4 overflow-hidden bg-[#F8FAFC] text-slate-700">
+      {/* Soft Aurora glow behind the form */}
+      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none flex items-center justify-center">
         <div
-          className="absolute inset-0 opacity-90"
+          className="w-[90%] sm:w-3/4 max-w-4xl h-[70%] rounded-full blur-[90px] opacity-60"
           style={{
-            WebkitMaskImage: 'linear-gradient(180deg, transparent 0%, white 12%, white 90%, transparent 100%)',
-            maskImage: 'linear-gradient(180deg, transparent 0%, white 12%, white 90%, transparent 100%)'
-          }}
-        >
-          <LaserFlow
-            className="w-full h-full"
-            color="#cfe5ff"
-            horizontalBeamOffset={0}
-            verticalBeamOffset={0}
-            wispDensity={1.4}
-            flowSpeed={0.32}
-            horizontalSizing={0.18}
-            verticalSizing={11}
-            fogIntensity={0.55}
-            fogScale={0.28}
-            wispSpeed={14}
-            wispIntensity={5.5}
-            flowStrength={0.32}
-            decay={1.05}
-            falloffStart={1.05}
-            fogFallSpeed={0.52}
-          />
-        </div>
-        {/* Base flare to anchor the spine at the footer line */}
-        <div
-          className="absolute bottom-2 left-1/2 -translate-x-1/2 w-56 h-24"
-          style={{
-            background: 'radial-gradient(ellipse at center, rgba(207,229,255,0.35) 0%, rgba(126,180,255,0.22) 45%, rgba(84,144,255,0.1) 70%, rgba(59,130,246,0) 100%)',
-            filter: 'blur(14px)'
+            background: 'radial-gradient(circle at center, #E0F2FE 0%, #F3E8FF 50%, rgba(240,244,255,0) 75%)'
           }}
         />
       </div>
@@ -98,36 +69,36 @@ const ContactSection: React.FC = () => {
 
       <div className="max-w-3xl mx-auto text-center relative z-10">
         <AnimatedElement>
-          <h2 className="font-orbitron text-3xl sm:text-4xl font-bold text-foreground drop-shadow-lg">Ready to Build Your AI Website?</h2>
-          <p className="mt-4 text-lg text-muted-foreground drop-shadow-md">
+          <h2 className="font-orbitron text-3xl sm:text-4xl font-bold text-slate-900 drop-shadow-sm">Ready to Build Your AI Website?</h2>
+          <p className="mt-4 text-lg text-slate-600 drop-shadow-sm">
             Tell us what you want to build and we'll design an intelligent system around it.
           </p>
         </AnimatedElement>
         <AnimatedElement delay={200} variant="zoomIn">
-          <div className="mt-12 bg-card/30 dark:bg-slate-900/30 backdrop-blur-2xl border border-border/50 rounded-3xl p-8 shadow-2xl shadow-black/10 text-left ring-1 ring-border/5 relative overflow-hidden">
+          <div className="mt-12 bg-white border border-[#E2E8F0] rounded-3xl p-8 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.05)] text-left relative overflow-hidden">
             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-muted-foreground mb-1">Name</label>
+                  <label htmlFor="name" className="block text-sm font-medium text-slate-500 mb-1">Name</label>
                   <input type="text" name="name" id="name" required value={formData.name} onChange={handleChange} className={inputClasses} />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-muted-foreground mb-1">Email</label>
+                  <label htmlFor="email" className="block text-sm font-medium text-slate-500 mb-1">Email</label>
                   <input type="email" name="email" id="email" required value={formData.email} onChange={handleChange} className={inputClasses} />
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                  <div>
-                    <label htmlFor="company" className="block text-sm font-medium text-muted-foreground mb-1">Company (Optional)</label>
+                    <label htmlFor="company" className="block text-sm font-medium text-slate-500 mb-1">Company (Optional)</label>
                     <input type="text" name="company" id="company" value={formData.company} onChange={handleChange} className={inputClasses} />
                  </div>
                  <div>
-                    <label htmlFor="website" className="block text-sm font-medium text-muted-foreground mb-1">Website (Optional)</label>
+                    <label htmlFor="website" className="block text-sm font-medium text-slate-500 mb-1">Website (Optional)</label>
                     <input type="url" name="website" id="website" value={formData.website} onChange={handleChange} className={inputClasses} />
                  </div>
               </div>
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-muted-foreground mb-1">What do you want to build?</label>
+                <label htmlFor="message" className="block text-sm font-medium text-slate-500 mb-1">What do you want to build?</label>
                 <textarea name="message" id="message" rows={4} required value={formData.message} onChange={handleChange} className={inputClasses}></textarea>
               </div>
               <div className="text-center pt-4 flex flex-col items-center gap-3">
@@ -138,17 +109,17 @@ const ContactSection: React.FC = () => {
                   className="w-full sm:w-auto"
                   disabled={status === 'sending'}
                 >
-                  <span className="text-foreground font-bold tracking-wide">
+                  <span className="text-slate-800 font-bold tracking-wide">
                     {status === 'sending' ? 'Sending...' : status === 'success' ? 'Message Sent!' : 'Send Request'}
                   </span>
                 </LiquidButton>
-                <div className="text-xs text-muted-foreground h-4">
-                  {status === 'error' && <span className="text-red-300">{errorMessage || 'Failed to send. Please try again.'}</span>}
-                  {status === 'success' && <span className="text-emerald-200">Thanks! We received your request.</span>}
+                <div className="text-xs text-slate-500 h-4">
+                  {status === 'error' && <span className="text-red-400">{errorMessage || 'Failed to send. Please try again.'}</span>}
+                  {status === 'success' && <span className="text-emerald-600">Thanks! We received your request.</span>}
                 </div>
               </div>
             </form>
-            <p className="mt-6 text-center text-xs text-muted-foreground uppercase tracking-widest relative z-10">No spam, no pressure.</p>
+            <p className="mt-6 text-center text-xs text-slate-500 uppercase tracking-widest relative z-10">No spam, no pressure.</p>
           </div>
         </AnimatedElement>
       </div>
