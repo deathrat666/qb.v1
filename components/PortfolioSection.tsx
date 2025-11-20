@@ -36,7 +36,12 @@ const ProjectCard = ({ item, delay }: { item: Project; delay: number }) => {
           className="w-full h-64 object-cover transition-transform duration-700 group-hover:scale-[1.03] grayscale-[0.1] group-hover:grayscale-0"
         />
         {item.isReal && (
-          <div className="absolute top-4 right-4 bg-emerald-500/90 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-lg backdrop-blur-md">
+          <div
+            className="absolute top-4 right-4 text-white text-[10px] font-bold px-3 py-[6px] rounded-full uppercase tracking-[0.16em] backdrop-blur-md border border-white/30 shadow-[0_10px_16px_rgba(5,150,105,0.45)]"
+            style={{
+              background: 'linear-gradient(180deg, #34D399 0%, #059669 100%)'
+            }}
+          >
             Live
           </div>
         )}
