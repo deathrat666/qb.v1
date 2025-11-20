@@ -18,8 +18,7 @@
     "framer-motion": "11.2.1",
     "lucide-react": "0.400.0",
     "ogl": "1.0.11",
-    "three": "0.160.0",
-    "react-slick": "0.30.2"
+    "three": "0.160.0"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
