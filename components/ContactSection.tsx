@@ -12,6 +12,8 @@ const ContactSection: React.FC = () => {
     website: '',
     message: '',
   });
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,10 +21,28 @@ const ContactSection: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real application, you would handle form submission here (e.g., API call)
-    console.log('Form submitted:', formData);
-    alert('Thank you for your message! We will get back to you soon.');
-    setFormData({ name: '', email: '', company: '', website: '', message: '' });
+    if (status === 'sending') return;
+
+    setStatus('sending');
+    setErrorMessage(null);
+
+    fetch('https://formspree.io/f/myzobqnl', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ ...formData, _subject: 'New contact from QByte IT site' }),
+    })
+      .then(async (res) => {
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          throw new Error((data?.error as string) || 'Failed to send message.');
+        }
+        setStatus('success');
+        setFormData({ name: '', email: '', company: '', website: '', message: '' });
+      })
+      .catch((err: Error) => {
+        setStatus('error');
+        setErrorMessage(err.message || 'Something went wrong. Please try again.');
+      });
   };
   
   // Theme-aware input styles
@@ -110,10 +130,22 @@ const ContactSection: React.FC = () => {
                 <label htmlFor="message" className="block text-sm font-medium text-muted-foreground mb-1">What do you want to build?</label>
                 <textarea name="message" id="message" rows={4} required value={formData.message} onChange={handleChange} className={inputClasses}></textarea>
               </div>
-              <div className="text-center pt-4">
-                <LiquidButton type="submit" size="xl" variant="default" className="w-full sm:w-auto">
-                  <span className="text-foreground font-bold tracking-wide">Send Request</span>
+              <div className="text-center pt-4 flex flex-col items-center gap-3">
+                <LiquidButton
+                  type="submit"
+                  size="xl"
+                  variant="default"
+                  className="w-full sm:w-auto"
+                  disabled={status === 'sending'}
+                >
+                  <span className="text-foreground font-bold tracking-wide">
+                    {status === 'sending' ? 'Sending...' : status === 'success' ? 'Message Sent!' : 'Send Request'}
+                  </span>
                 </LiquidButton>
+                <div className="text-xs text-muted-foreground h-4">
+                  {status === 'error' && <span className="text-red-300">{errorMessage || 'Failed to send. Please try again.'}</span>}
+                  {status === 'success' && <span className="text-emerald-200">Thanks! We received your request.</span>}
+                </div>
               </div>
             </form>
             <p className="mt-6 text-center text-xs text-muted-foreground uppercase tracking-widest relative z-10">No spam, no pressure.</p>
