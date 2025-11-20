@@ -58,6 +58,22 @@ const ContactSection: React.FC = () => {
           }}
         />
       </div>
+      {/* Holographic vertical spine and floor splash (behind the form) */}
+      <div className="absolute inset-0 pointer-events-none z-0 flex justify-center">
+        <div
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[3px] h-full rounded-full"
+          style={{
+            background: 'linear-gradient(180deg, rgba(6,182,212,0) 0%, #06B6D4 20%, #6366F1 80%, rgba(99,102,241,0) 100%)',
+            boxShadow: '0 0 15px rgba(6,182,212,0.4)'
+          }}
+        />
+        <div
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 w-[200px] h-[90px] blur-[45px] opacity-70"
+          style={{
+            background: 'radial-gradient(ellipse at center, rgba(6,182,212,0.35) 0%, rgba(99,102,241,0.25) 55%, rgba(99,102,241,0) 100%)'
+          }}
+        />
+      </div>
       {/* Centered logo hovering above footer */}
       <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-8 z-10">
         <img
