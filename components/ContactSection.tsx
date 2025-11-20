@@ -30,41 +30,41 @@ const ContactSection: React.FC = () => {
 
   return (
     <section id="contact" className="relative py-20 sm:py-32 px-4 overflow-hidden">
-      {/* Vertical energy spine tying header to footer */}
-      <div className="pointer-events-none absolute inset-0 flex justify-center z-0">
+      {/* Laser-inspired spine with fogged base (reactbits.dev/animations/laser-flow reference) */}
+      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
         <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 h-full w-[2px]"
+          className="absolute inset-0 opacity-90"
           style={{
-            background: 'linear-gradient(180deg, rgba(59,130,246,0) 0%, rgba(59,130,246,0.85) 20%, rgba(59,130,246,1) 55%, rgba(59,130,246,0.85) 90%, rgba(59,130,246,0.4) 100%)',
-            boxShadow: '0 0 55px 20px rgba(59,130,246,0.35)'
+            WebkitMaskImage: 'linear-gradient(180deg, transparent 0%, white 12%, white 90%, transparent 100%)',
+            maskImage: 'linear-gradient(180deg, transparent 0%, white 12%, white 90%, transparent 100%)'
           }}
-        />
+        >
+          <LaserFlow
+            className="w-full h-full"
+            color="#cfe5ff"
+            horizontalBeamOffset={0}
+            verticalBeamOffset={0}
+            wispDensity={1.4}
+            flowSpeed={0.32}
+            horizontalSizing={0.18}
+            verticalSizing={11}
+            fogIntensity={0.55}
+            fogScale={0.28}
+            wispSpeed={14}
+            wispIntensity={5.5}
+            flowStrength={0.32}
+            decay={1.05}
+            falloffStart={1.05}
+            fogFallSpeed={0.52}
+          />
+        </div>
+        {/* Base flare to anchor the spine at the footer line */}
         <div
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 w-32 h-16"
+          className="absolute bottom-2 left-1/2 -translate-x-1/2 w-56 h-24"
           style={{
-            background: 'radial-gradient(ellipse at center, rgba(59,130,246,0.45) 0%, rgba(59,130,246,0.15) 60%, rgba(59,130,246,0) 100%)',
-            filter: 'blur(8px)'
+            background: 'radial-gradient(ellipse at center, rgba(207,229,255,0.35) 0%, rgba(126,180,255,0.22) 45%, rgba(84,144,255,0.1) 70%, rgba(59,130,246,0) 100%)',
+            filter: 'blur(14px)'
           }}
-        />
-        <div
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[92%] h-24"
-          style={{
-            background: 'radial-gradient(ellipse at center, rgba(59,130,246,0.22) 0%, rgba(59,130,246,0.12) 35%, rgba(59,130,246,0.06) 60%, rgba(59,130,246,0) 100%)',
-            filter: 'blur(18px)',
-            opacity: 0.9
-          }}
-        />
-      </div>
-      {/* Background LaserFlow - keep subtle motion without washing out */}
-      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none opacity-35 mix-blend-screen">
-        <LaserFlow 
-            color="#3B82F6"
-            horizontalBeamOffset={0.0}
-            verticalBeamOffset={0.0}
-            wispDensity={1.2}
-            flowSpeed={0.4}
-            horizontalSizing={0.01}
-            verticalSizing={10}
         />
       </div>
 
