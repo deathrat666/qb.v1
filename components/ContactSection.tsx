@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import AnimatedElement from './AnimatedElement';
 import { LiquidButton } from './ui/liquid-glass-button';
+import LaserFlow from './LaserFlow';
 
 const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -49,28 +50,46 @@ const ContactSection: React.FC = () => {
 
   return (
     <section id="contact" className="relative py-20 sm:py-32 px-4 overflow-hidden bg-[#F8FAFC] text-slate-700">
-      {/* Soft Aurora glow behind the form */}
-      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none flex items-center justify-center">
+      {/* Soft Aurora glow + laser spine behind the form */}
+      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div
+            className="w-[90%] sm:w-3/4 max-w-4xl h-[70%] rounded-full blur-[90px] opacity-60"
+            style={{
+              background: 'radial-gradient(circle at center, #E0F2FE 0%, #F3E8FF 50%, rgba(240,244,255,0) 75%)'
+            }}
+          />
+        </div>
         <div
-          className="w-[90%] sm:w-3/4 max-w-4xl h-[70%] rounded-full blur-[90px] opacity-60"
+          className="absolute inset-0 flex items-center justify-center"
           style={{
-            background: 'radial-gradient(circle at center, #E0F2FE 0%, #F3E8FF 50%, rgba(240,244,255,0) 75%)'
+            WebkitMaskImage: 'linear-gradient(180deg, transparent 0%, white 10%, white 90%, transparent 100%)',
+            maskImage: 'linear-gradient(180deg, transparent 0%, white 10%, white 90%, transparent 100%)'
           }}
-        />
-      </div>
-      {/* Holographic vertical spine and floor splash (behind the form) */}
-      <div className="absolute inset-0 pointer-events-none z-0 flex justify-center">
+        >
+          <LaserFlow
+            className="w-full h-full"
+            color="#9fb8ff"
+            horizontalBeamOffset={0}
+            verticalBeamOffset={0}
+            wispDensity={1.35}
+            flowSpeed={0.33}
+            horizontalSizing={0.16}
+            verticalSizing={10}
+            fogIntensity={0.5}
+            fogScale={0.26}
+            wispSpeed={13}
+            wispIntensity={5}
+            flowStrength={0.3}
+            decay={1.05}
+            falloffStart={1.05}
+            fogFallSpeed={0.5}
+          />
+        </div>
         <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[3px] h-full rounded-full"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 w-[240px] h-[110px] blur-[48px] opacity-75"
           style={{
-            background: 'linear-gradient(180deg, rgba(6,182,212,0) 0%, #06B6D4 20%, #6366F1 80%, rgba(99,102,241,0) 100%)',
-            boxShadow: '0 0 15px rgba(6,182,212,0.4)'
-          }}
-        />
-        <div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 w-[200px] h-[90px] blur-[45px] opacity-70"
-          style={{
-            background: 'radial-gradient(ellipse at center, rgba(6,182,212,0.35) 0%, rgba(99,102,241,0.25) 55%, rgba(99,102,241,0) 100%)'
+            background: 'radial-gradient(ellipse at center, rgba(159,184,255,0.4) 0%, rgba(120,149,255,0.25) 55%, rgba(120,149,255,0) 100%)'
           }}
         />
       </div>
