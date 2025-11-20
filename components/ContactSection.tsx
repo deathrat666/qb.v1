@@ -45,18 +45,18 @@ const ContactSection: React.FC = () => {
       });
   };
   
-  // Theme-aware input styles
-  const inputClasses = "w-full bg-white border border-[#E2E8F0] rounded-lg py-3 px-4 text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-200 focus:border-sky-300 transition-all duration-300";
+  // Theme-aware input styles (dark)
+  const inputClasses = "w-full bg-white/5 border border-white/10 rounded-lg py-3 px-4 text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/60 focus:border-sky-400/70 transition-all duration-300";
 
   return (
-    <section id="contact" className="relative py-20 sm:py-32 px-4 overflow-hidden bg-[#F8FAFC] text-slate-700">
-      {/* Soft Aurora glow + laser spine behind the form */}
+    <section id="contact" className="relative py-20 sm:py-32 px-4 overflow-hidden bg-[#0B1220] text-slate-100">
+      {/* Soft Aurora glow + laser spine behind the form (dark theme) */}
       <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
         <div className="absolute inset-0 flex items-center justify-center">
           <div
-            className="w-[90%] sm:w-3/4 max-w-4xl h-[70%] rounded-full blur-[90px] opacity-60"
+            className="w-[88%] sm:w-3/4 max-w-4xl h-[70%] rounded-full blur-[95px] opacity-65"
             style={{
-              background: 'radial-gradient(circle at center, #E0F2FE 0%, #F3E8FF 50%, rgba(240,244,255,0) 75%)'
+              background: 'radial-gradient(circle at center, rgba(56,189,248,0.45) 0%, rgba(129,140,248,0.5) 45%, rgba(15,23,42,0) 75%)'
             }}
           />
         </div>
@@ -87,9 +87,9 @@ const ContactSection: React.FC = () => {
           />
         </div>
         <div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 w-[240px] h-[110px] blur-[48px] opacity-75"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 w-[240px] h-[110px] blur-[48px] opacity-80"
           style={{
-            background: 'radial-gradient(ellipse at center, rgba(159,184,255,0.4) 0%, rgba(120,149,255,0.25) 55%, rgba(120,149,255,0) 100%)'
+            background: 'radial-gradient(ellipse at center, rgba(99,102,241,0.45) 0%, rgba(59,130,246,0.32) 50%, rgba(99,102,241,0) 100%)'
           }}
         />
       </div>
@@ -104,36 +104,36 @@ const ContactSection: React.FC = () => {
 
       <div className="max-w-3xl mx-auto text-center relative z-10">
         <AnimatedElement>
-          <h2 className="font-orbitron text-3xl sm:text-4xl font-bold text-slate-900 drop-shadow-sm">Ready to Build Your AI Website?</h2>
-          <p className="mt-4 text-lg text-slate-600 drop-shadow-sm">
+          <h2 className="font-orbitron text-3xl sm:text-4xl font-bold text-white drop-shadow-lg">Ready to Build Your AI Website?</h2>
+          <p className="mt-4 text-lg text-slate-300 drop-shadow-sm">
             Tell us what you want to build and we'll design an intelligent system around it.
           </p>
         </AnimatedElement>
         <AnimatedElement delay={200} variant="zoomIn">
-          <div className="mt-12 bg-white border border-[#E2E8F0] rounded-3xl p-8 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.05)] text-left relative overflow-hidden">
+          <div className="mt-12 bg-[#0F172A]/80 border border-white/10 rounded-3xl p-8 shadow-[0_25px_60px_-18px_rgba(0,0,0,0.55)] backdrop-blur-xl text-left relative overflow-hidden">
             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-slate-500 mb-1">Name</label>
+                  <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-1">Name</label>
                   <input type="text" name="name" id="name" required value={formData.name} onChange={handleChange} className={inputClasses} />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-slate-500 mb-1">Email</label>
+                  <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-1">Email</label>
                   <input type="email" name="email" id="email" required value={formData.email} onChange={handleChange} className={inputClasses} />
                 </div>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                  <div>
-                    <label htmlFor="company" className="block text-sm font-medium text-slate-500 mb-1">Company (Optional)</label>
+                    <label htmlFor="company" className="block text-sm font-medium text-slate-300 mb-1">Company (Optional)</label>
                     <input type="text" name="company" id="company" value={formData.company} onChange={handleChange} className={inputClasses} />
                  </div>
                  <div>
-                    <label htmlFor="website" className="block text-sm font-medium text-slate-500 mb-1">Website (Optional)</label>
+                    <label htmlFor="website" className="block text-sm font-medium text-slate-300 mb-1">Website (Optional)</label>
                     <input type="url" name="website" id="website" value={formData.website} onChange={handleChange} className={inputClasses} />
                  </div>
               </div>
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-slate-500 mb-1">What do you want to build?</label>
+                <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-1">What do you want to build?</label>
                 <textarea name="message" id="message" rows={4} required value={formData.message} onChange={handleChange} className={inputClasses}></textarea>
               </div>
               <div className="text-center pt-4 flex flex-col items-center gap-3">
@@ -144,17 +144,17 @@ const ContactSection: React.FC = () => {
                   className="w-full sm:w-auto"
                   disabled={status === 'sending'}
                 >
-                  <span className="text-slate-800 font-bold tracking-wide">
+                  <span className="text-slate-50 font-bold tracking-wide">
                     {status === 'sending' ? 'Sending...' : status === 'success' ? 'Message Sent!' : 'Send Request'}
                   </span>
                 </LiquidButton>
-                <div className="text-xs text-slate-500 h-4">
-                  {status === 'error' && <span className="text-red-400">{errorMessage || 'Failed to send. Please try again.'}</span>}
-                  {status === 'success' && <span className="text-emerald-600">Thanks! We received your request.</span>}
+                <div className="text-xs text-slate-400 h-4">
+                  {status === 'error' && <span className="text-red-300">{errorMessage || 'Failed to send. Please try again.'}</span>}
+                  {status === 'success' && <span className="text-emerald-300">Thanks! We received your request.</span>}
                 </div>
               </div>
             </form>
-            <p className="mt-6 text-center text-xs text-slate-500 uppercase tracking-widest relative z-10">No spam, no pressure.</p>
+            <p className="mt-6 text-center text-xs text-slate-400 uppercase tracking-widest relative z-10">No spam, no pressure.</p>
           </div>
         </AnimatedElement>
       </div>
