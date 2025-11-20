@@ -11,6 +11,7 @@ const ContactSection: React.FC = () => {
     company: '',
     website: '',
     message: '',
+    _gotcha: '',
   });
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -37,7 +38,7 @@ const ContactSection: React.FC = () => {
           throw new Error((data?.error as string) || 'Failed to send message.');
         }
         setStatus('success');
-        setFormData({ name: '', email: '', company: '', website: '', message: '' });
+        setFormData({ name: '', email: '', company: '', website: '', message: '', _gotcha: '' });
       })
       .catch((err: Error) => {
         setStatus('error');
@@ -112,6 +113,21 @@ const ContactSection: React.FC = () => {
         <AnimatedElement delay={200} variant="zoomIn">
           <div className="mt-12 bg-[#0F172A]/80 border border-white/10 rounded-3xl p-8 shadow-[0_25px_60px_-18px_rgba(0,0,0,0.55)] backdrop-blur-xl text-left relative overflow-hidden">
             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
+              {/* Honeypot field for bots */}
+              <div className="hidden" aria-hidden="true">
+                <label>
+                  Do not fill this field
+                  <input
+                    type="text"
+                    name="_gotcha"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={formData._gotcha}
+                    onChange={handleChange}
+                    className="hidden"
+                  />
+                </label>
+              </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-1">Name</label>
