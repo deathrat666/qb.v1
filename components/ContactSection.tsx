@@ -67,6 +67,14 @@ const ContactSection: React.FC = () => {
           }}
         />
       </div>
+      {/* Centered logo hovering above footer */}
+      <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-16 z-10">
+        <img
+          src="/qbyte it logo.webp"
+          alt="QByte IT"
+          className="w-28 sm:w-32 h-auto drop-shadow-[0_12px_35px_rgba(59,130,246,0.35)]"
+        />
+      </div>
 
       <div className="max-w-3xl mx-auto text-center relative z-10">
         <AnimatedElement>
