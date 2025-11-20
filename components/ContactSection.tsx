@@ -46,6 +46,14 @@ const ContactSection: React.FC = () => {
             filter: 'blur(8px)'
           }}
         />
+        <div
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[92%] h-24"
+          style={{
+            background: 'radial-gradient(ellipse at center, rgba(59,130,246,0.22) 0%, rgba(59,130,246,0.12) 35%, rgba(59,130,246,0.06) 60%, rgba(59,130,246,0) 100%)',
+            filter: 'blur(18px)',
+            opacity: 0.9
+          }}
+        />
       </div>
       {/* Background LaserFlow - keep subtle motion without washing out */}
       <div className="absolute inset-0 w-full h-full z-0 pointer-events-none opacity-35 mix-blend-screen">
