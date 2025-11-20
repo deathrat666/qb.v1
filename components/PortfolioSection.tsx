@@ -90,7 +90,7 @@ const PortfolioSection: React.FC = () => {
       id: 1,
       title: "AL-Ferasa AI Face Reading",
       subtitle: "AI-powered physiognomy app with generative analysis and real-time scanning.",
-      image: "https://images.unsplash.com/photo-1633412802994-5c058f151b66?q=80&w=800&auto=format&fit=crop",
+      image: "/al-ferasa-face-reading.png",
       isReal: true,
       link: "https://al-ferasa-v1.vercel.app/"
     },
