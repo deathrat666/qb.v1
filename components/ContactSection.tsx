@@ -106,7 +106,7 @@ const ContactSection: React.FC = () => {
       <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
         <div className="absolute inset-0 flex items-center justify-center">
           <div
-            className="w-[88%] sm:w-3/4 max-w-4xl h-[70%] rounded-full blur-[95px] opacity-65"
+            className="w-[88%] sm:w-3/4 max-w-4xl h-[70%] rounded-full opacity-65"
             style={{ background: 'radial-gradient(circle at center, rgba(56,189,248,0.45) 0%, rgba(129,140,248,0.5) 45%, rgba(15,23,42,0) 75%)' }}
           />
         </div>

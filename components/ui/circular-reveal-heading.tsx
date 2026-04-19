@@ -1,7 +1,7 @@
 
 "use client"
-import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import React, { useState, useEffect, useRef } from 'react'
+import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { cn } from "../../lib/utils"
 import { useTheme } from '../../contexts/ThemeProvider';
 
@@ -109,6 +109,8 @@ export const CircularRevealHeading = ({
     const config = sizeConfig[size];
     const imagesLoaded = usePreloadImages(items.map(item => item.image));
     const { theme } = useTheme();
+    const containerRef = useRef<HTMLDivElement>(null);
+    const isInView = useInView(containerRef, { margin: '0px 0px -10% 0px' });
 
     const isSystemDark = typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches;
     const isDark = theme === 'dark' || (theme === 'system' && isSystemDark);
@@ -160,14 +162,15 @@ export const CircularRevealHeading = ({
         <>
             <ImagePreloader images={items.map(item => item.image)} />
             <motion.div
+                ref={containerRef}
                 whileHover={isDark ? {} : {
                     boxShadow: "20px 20px 40px #bebebe, -20px -20px 40px #ffffff"
                 }}
                 whileTap={{ scale: 0.98 }}
-                animate={{ y: [0, -8, 0] }}
+                animate={isInView ? { y: [0, -8, 0] } : { y: 0 }}
                 transition={{
                     duration: 5,
-                    repeat: Infinity,
+                    repeat: isInView ? Infinity : 0,
                     ease: "easeInOut"
                 }}
                 className={cn(
@@ -236,10 +239,10 @@ export const CircularRevealHeading = ({
                 <motion.div
                     className="absolute inset-0"
                     initial={{ rotate: 0 }}
-                    animate={{ rotate: 360 }}
+                    animate={isInView ? { rotate: 360 } : {}}
                     transition={{
                         duration: 40,
-                        repeat: Infinity,
+                        repeat: isInView ? Infinity : 0,
                         ease: "linear"
                     }}
                 >
