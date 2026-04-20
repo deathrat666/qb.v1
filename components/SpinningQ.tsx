@@ -43,6 +43,23 @@ function RingMesh() {
   );
 }
 
+function TailMesh() {
+  return (
+    <mesh>
+      {/* 
+        A smooth pill-like shape that matches the overall aesthetic of the rings.
+        Args: [radius, length, capSegments, radialSegments]
+      */}
+      <capsuleGeometry args={[0.22, 0.7, 16, 64]} />
+      <meshStandardMaterial 
+        color="#ededed" 
+        roughness={0.55} 
+        metalness={0} 
+      />
+    </mesh>
+  );
+}
+
 function LinkedRings() {
   const groupRef = useRef<THREE.Group>(null);
   const axis = useMemo(() => new THREE.Vector3(0.34, 0.94, 0).normalize(), []);
@@ -79,6 +96,11 @@ function LinkedRings() {
       {/* Ring 2 (Edge-on initially, interlocked) */}
       <group position={[0, 0, -offset]} rotation={[Math.PI / 2, 0, 0]}>
         <RingMesh />
+      </group>
+      
+      {/* Tail (Bottom right, interlocked into the Q shape) */}
+      <group position={[0.7, -0.7, 0.15]} rotation={[0, 0, -Math.PI / 4]}>
+        <TailMesh />
       </group>
     </group>
   );

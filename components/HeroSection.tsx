@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { BRAND_CONFIG } from '../constants';
 import { handleSmoothScroll } from '../utils/smoothScroll';
 import { LiquidButton, Button } from './ui/liquid-glass-button';
-import SpinningQ from './SpinningQ';
+import HeroQ from './hero/HeroQ';
 import ShinyText from './ShinyText';
 
 const HeroSection: React.FC = () => {
@@ -16,7 +16,7 @@ const HeroSection: React.FC = () => {
           Desktop: Constrained width (65%), centered horizontally, positioned higher (top-15%) to support text.
        */}
        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[110%] md:w-[65%] md:h-[85%] z-0 md:top-[15%] md:translate-y-0">
-          <SpinningQ />
+          <HeroQ />
         </div>
 
        {/* Content Overlay - pointer-events-none allows mouse to pass through to Q for hover effects */}

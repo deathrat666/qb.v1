@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ffmpeg -version)",
+      "Bash(python -c \"import cv2; print\\('opencv available'\\)\")",
+      "Bash(python -c \"import imageio; print\\('imageio available'\\)\")",
+      "Bash(pip install *)",
+      "Bash(mkdir -p /tmp/qbyte-frames)",
+      "Bash(python -c ' *)",
+      "Bash(rm -f /tmp/qbyte-frames/*.png)",
+      "mcp__Claude_Preview__preview_start"
+    ]
+  }
+}
