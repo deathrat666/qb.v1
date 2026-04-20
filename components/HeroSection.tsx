@@ -4,27 +4,22 @@ import { motion } from "framer-motion";
 import { BRAND_CONFIG } from '../constants';
 import { handleSmoothScroll } from '../utils/smoothScroll';
 import { LiquidButton, Button } from './ui/liquid-glass-button';
-import Orb from './Orb';
+import SpinningQ from './SpinningQ';
 import ShinyText from './ShinyText';
 
 const HeroSection: React.FC = () => {
   return (
     <section id="home" className="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden bg-zinc-50 dark:bg-zinc-900">
-       {/* Orb Background */}
+       {/* Spinning Q Background */}
        {/* 
           Mobile: Full width/height for immersion.
           Desktop: Constrained width (65%), centered horizontally, positioned higher (top-15%) to support text.
        */}
        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[110%] md:w-[65%] md:h-[85%] z-0 md:top-[15%] md:translate-y-0">
-         <Orb
-            hoverIntensity={0.8}
-            rotateOnHover={true}
-            hue={0}
-            forceHoverState={false}
-         />
-       </div>
+          <SpinningQ />
+        </div>
 
-       {/* Content Overlay - pointer-events-none allows mouse to pass through to Orb for hover effects */}
+       {/* Content Overlay - pointer-events-none allows mouse to pass through to Q for hover effects */}
       <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-7xl mx-auto px-4 pointer-events-none h-full py-12">
         <motion.div
           initial={{ opacity: 0.0, y: 40 }}
