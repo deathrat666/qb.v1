@@ -2,9 +2,15 @@
   width: 100%;
   height: 100%;
   position: relative;
-  background-color: #0a0a0a;
-  /* Radial vignette */
-  background-image: radial-gradient(circle at center, rgba(20, 20, 20, 0.5) 0%, rgba(10, 10, 10, 1) 80%);
+  background-color: #020617; /* slate-950 */
+  /* Subtle violet/sky vignette to complement the neon Q */
+  background-image: radial-gradient(
+    circle at center,
+    rgba(14, 165, 233, 0.10) 0%,   /* sky-500 core */
+    rgba(2, 6, 23, 1) 75%          /* slate-950 edges */
+  );
+  /* Inner sky-500 glow ring */
+  box-shadow: inset 0 0 80px -10px rgba(14, 165, 233, 0.35);
 }
 
 .spinning-q-container canvas {

@@ -9,7 +9,10 @@ import ShinyText from './ShinyText';
 
 const HeroSection: React.FC = () => {
   return (
-    <section id="home" className="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden bg-zinc-50 dark:bg-zinc-900">
+    <section
+      id="home"
+      className="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden bg-slate-50 dark:bg-slate-950 ring-1 ring-inset ring-sky-500/25 shadow-[inset_0_0_120px_-20px_rgba(14,165,233,0.35)]"
+    >
        {/* Spinning Q Background */}
        {/* 
           Mobile: Full width/height for immersion.
@@ -34,8 +37,9 @@ const HeroSection: React.FC = () => {
           <h1 className="font-orbitron font-extrabold tracking-tighter leading-[1.1] text-[clamp(2.8rem,5vw,4.5rem)] mb-6">
              <ShinyText text={BRAND_CONFIG.tagline} speed={4} />
           </h1>
-          <p className="max-w-[640px] mx-auto text-[1.125rem] md:text-[1.2rem] leading-relaxed text-slate-700 dark:text-neutral-200 text-center font-medium mb-8">
-            Smart. Beautiful. Autonomous. QByte IT creates AI-powered web systems that design, write, and grow alongside your business.
+          <p className="max-w-[640px] mx-auto text-[1.125rem] md:text-[1.2rem] leading-relaxed text-slate-400 text-center font-medium mb-8">
+            <span className="text-slate-900 dark:text-white">Smart. Beautiful. Autonomous.</span>{' '}
+            QByte IT creates AI-powered web systems that design, write, and grow alongside your business.
           </p>
           {/* Enable pointer events for buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pointer-events-auto">

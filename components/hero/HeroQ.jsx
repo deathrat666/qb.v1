@@ -1,7 +1,91 @@
+import { EffectComposer, Bloom } from '@react-three/postprocessing'
+import { useRef, useMemo, useEffect, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { useRef, useMemo } from 'react'
 import * as THREE from 'three'
 
+// ─── Brand palette (user-specified) ─────────────────────────────────────────
+const NEON_CYAN   = new THREE.Color('#00F2FE')
+const NEON_VIOLET = new THREE.Color('#A18CD1')
+
+// ─── Dark-mode detection (no next-themes — this project uses class-based DM) ─
+function useDarkMode() {
+  const [isDark, setIsDark] = useState(
+    () => document.documentElement.classList.contains('dark')
+  )
+  useEffect(() => {
+    const obs = new MutationObserver(() =>
+      setIsDark(document.documentElement.classList.contains('dark'))
+    )
+    obs.observe(document.documentElement, { attributeFilter: ['class'] })
+    return () => obs.disconnect()
+  }, [])
+  return isDark
+}
+
+// ─── MeshPhysicalMaterial with world-Y cyan→violet gradient ─────────────────
+// Uses onBeforeCompile to inject the gradient into both diffuse and emissive
+// channels, keeping all PBR lighting (metalness, roughness, clearcoat) intact.
+function useNeonMaterial(isDark) {
+  const mat = useMemo(() => {
+    const m = new THREE.MeshPhysicalMaterial({
+      color: '#ffffff',
+      metalness:          isDark ? 0.82 : 0.65,
+      roughness:          isDark ? 0.14 : 0.22,
+      clearcoat:          1.0,
+      clearcoatRoughness: 0.08,
+      emissiveIntensity:  1.0,
+      side: THREE.DoubleSide,
+    })
+    const emStr = isDark ? 0.9 : 0.42
+
+    m.onBeforeCompile = (shader) => {
+      shader.uniforms.uColorA = { value: NEON_CYAN }
+      shader.uniforms.uColorB = { value: NEON_VIOLET }
+      shader.uniforms.uEmStr  = { value: emStr }
+
+      shader.vertexShader = shader.vertexShader
+        .replace(
+          '#include <common>',
+          '#include <common>\nvarying vec3 vNeonWorld;'
+        )
+        .replace(
+          '#include <begin_vertex>',
+          '#include <begin_vertex>\nvNeonWorld = (modelMatrix * vec4(transformed, 1.0)).xyz;'
+        )
+
+      shader.fragmentShader = shader.fragmentShader
+        .replace(
+          '#include <common>',
+          `#include <common>
+uniform vec3  uColorA;
+uniform vec3  uColorB;
+uniform float uEmStr;
+varying vec3  vNeonWorld;`
+        )
+        .replace(
+          '#include <color_fragment>',
+          `float gradT = smoothstep(-1.4, 1.4, vNeonWorld.y);
+vec3 gradCol = mix(uColorA, uColorB, gradT);
+diffuseColor.rgb = gradCol;`
+        )
+        .replace(
+          '#include <emissivemap_fragment>',
+          `#include <emissivemap_fragment>
+float emT = smoothstep(-1.4, 1.4, vNeonWorld.y);
+totalEmissiveRadiance += mix(uColorA, uColorB, emT) * uEmStr;`
+        )
+    }
+    return m
+  }, [isDark])
+
+  // Dispose the old material when isDark flips
+  useEffect(() => () => { mat.dispose() }, [mat])
+
+  return mat
+}
+
+// ─── Ring geometry ───────────────────────────────────────────────────────────
+// Rectangular cross-section LatheGeometry — DO NOT change r, R, d, or segments.
 function Ring() {
   const geometry = useMemo(() => {
     const R = 1.0
@@ -19,112 +103,114 @@ function Ring() {
   return <primitive object={geometry} />
 }
 
-function LinkedRings() {
+// ─── Hopf-link animation ─────────────────────────────────────────────────────
+// HARD CONSTRAINTS (must not be changed):
+//   • setRotationFromAxisAngle — never rotateOnWorldAxis
+//   • swapAxis = (1,0,1).normalize()
+//   • DWELL 1 s / SPIN 2 s / easeInOutSine per cycle
+//   • role-based SCALE_BOWL / SCALE_TAIL swap
+function LinkedRings({ isDark }) {
   const animGroup = useRef()
-  const bowlRing = useRef()
-  const tailRing = useRef()
+  const bowlRing  = useRef()
+  const tailRing  = useRef()
+  const neonMat   = useNeonMaterial(isDark)
 
-  // Swap axis, expressed in animGroup's local frame. A 180° rotation around
-  // (1, 0, 1)/√2 maps the bowl ring's position + normal onto the tail ring's
-  // and vice-versa, so every half-revolution the two rings trade places. The
-  // "second Q" appears in the original Q's screen position with the former
-  // tail now serving as the new bowl.
-  const swapAxis = useMemo(
-    () => new THREE.Vector3(1, 0, 1).normalize(),
-    []
-  )
+  const swapAxis = useMemo(() => new THREE.Vector3(1, 0, 1).normalize(), [])
 
-  // Timing: dwell motionless at the Q pose, then spin 180° around swapAxis
-  // (which swaps the rings and produces a visually identical "new Q"), then
-  // dwell again, repeat. Each spin advances the cumulative rotation by π.
-  const DWELL = 1.0
-  const SPIN = 2.0
-  const CYCLE = DWELL + SPIN
+  const DWELL      = 1.0
+  const SPIN       = 2.0
+  const CYCLE      = DWELL + SPIN
   const SCALE_BOWL = 1.0
   const SCALE_TAIL = 0.85
 
   useFrame((state) => {
     if (!animGroup.current) return
-    const t = state.clock.getElapsedTime()
+    const t        = state.clock.getElapsedTime()
     const cycleIdx = Math.floor(t / CYCLE)
-    const cycleTime = t - cycleIdx * CYCLE
+    const cycleT   = t - cycleIdx * CYCLE
 
-    // spinPhase: 0 during dwell, 0→1 eased across the spin.
-    let spinPhase
-    if (cycleTime < DWELL) {
-      spinPhase = 0
-    } else {
-      const spinT = (cycleTime - DWELL) / SPIN
-      spinPhase = (1 - Math.cos(spinT * Math.PI)) / 2
-    }
+    const spinPhase = cycleT < DWELL
+      ? 0
+      : (1 - Math.cos(((cycleT - DWELL) / SPIN) * Math.PI)) / 2
 
-    // Cumulative angle: each completed cycle adds π (one swap). During the
-    // active spin we interpolate another π on top, so the pose is continuous
-    // and the dwells land exactly on Q-poses (angle = kπ).
     const angle = (cycleIdx + spinPhase) * Math.PI
     animGroup.current.setRotationFromAxisAngle(swapAxis, angle)
 
-    // Role-based scale: whichever ring is in the BOWL position is 1.0, the
-    // one in the TAIL position is 0.85. halfPhase = sin²(angle/2) is 0 at
-    // every Q-pose (angle = 2kπ, original roles) and 1 at every swapped
-    // Q-pose (angle = (2k+1)π, roles exchanged), so dwells always show the
-    // canonical Q silhouette regardless of which ring is currently the bowl.
     const halfPhase = (1 - Math.cos(angle)) / 2
-    const delta = SCALE_BOWL - SCALE_TAIL
-    if (bowlRing.current) {
-      bowlRing.current.scale.setScalar(SCALE_BOWL - delta * halfPhase)
-    }
-    if (tailRing.current) {
-      tailRing.current.scale.setScalar(SCALE_TAIL + delta * halfPhase)
-    }
+    const delta     = SCALE_BOWL - SCALE_TAIL
+    if (bowlRing.current) bowlRing.current.scale.setScalar(SCALE_BOWL - delta * halfPhase)
+    if (tailRing.current) tailRing.current.scale.setScalar(SCALE_TAIL + delta * halfPhase)
   })
 
-  // Symmetric Hopf pair, designed so the swap axis above is a true symmetry:
-  //   bowlRing starts at (0, +0.3, 0) with normal +Z  → face-on to camera
-  //   tailRing starts at (0, -0.3, 0) with normal +X  → edge-on in local frame
-  // No outer tilt: the rest pose is face-on to the camera. The 180° swap
-  // around (1,0,1)/√2 still exchanges the rings' positions and normals, so a
-  // visually identical Q appears at every dwell (swapped-role pose).
   return (
     <group>
       <group ref={animGroup}>
-        {/* Ring that starts as the BOWL — larger */}
-        <mesh ref={bowlRing} position={[0, 0.3, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        {/* Bowl ring — starts face-on to camera */}
+        <mesh ref={bowlRing} position={[0, 0.3, 0]} rotation={[Math.PI / 2, 0, 0]} material={neonMat}>
           <Ring />
-          <meshStandardMaterial
-            color="#f2f2f2"
-            roughness={0.5}
-            metalness={0}
-            side={THREE.DoubleSide}
-          />
         </mesh>
-        {/* Ring that starts as the TAIL — initially a bit smaller */}
-        <mesh ref={tailRing} position={[0, -0.3, 0]} rotation={[0, 0, -Math.PI / 2]}>
+        {/* Tail ring — starts edge-on, interlocked */}
+        <mesh ref={tailRing} position={[0, -0.3, 0]} rotation={[0, 0, -Math.PI / 2]} material={neonMat}>
           <Ring />
-          <meshStandardMaterial
-            color="#f2f2f2"
-            roughness={0.5}
-            metalness={0}
-            side={THREE.DoubleSide}
-          />
         </mesh>
       </group>
     </group>
   )
 }
 
+// ─── Scene root ──────────────────────────────────────────────────────────────
 export default function HeroQ() {
+  const isDark = useDarkMode()
+
   return (
-    <Canvas camera={{ position: [0, 0, 4.5], fov: 35 }} dpr={[1, 2]} shadows>
-      <color attach="background" args={['#0a0a0a']} />
-      <ambientLight intensity={0.35} />
-      <hemisphereLight args={['#ffffff', '#101010', 0.7]} />
+    <Canvas
+      camera={{ position: [0, 0, 4.5], fov: 35 }}
+      dpr={[1, 2]}
+      gl={{
+        toneMapping:         THREE.ACESFilmicToneMapping,
+        toneMappingExposure: 1.0,
+        antialias:           true,
+        alpha:               true,
+      }}
+    >
+      {/* Slate-950 in dark, slate-50 in light — matches HeroSection bg */}
+      <color attach="background" args={[isDark ? '#020617' : '#f8fafc']} />
+
+      {/* Low ambient so emissive/metalness pops, hemi tinted to brand colors */}
+      <ambientLight intensity={isDark ? 0.10 : 0.35} />
+      <hemisphereLight args={['#00F2FE', '#A18CD1', isDark ? 0.45 : 0.22]} />
+
+      {/* PBR key light preserves clearcoat specular highlights */}
       <directionalLight
         position={[-4, 5, 4]}
-        intensity={3.5}
+        intensity={isDark ? 1.4 : 2.2}
+        color={isDark ? '#ffffff' : '#e0e7ff'}
         castShadow
+        shadow-mapSize={[1024, 1024]}
+      >
+        <orthographicCamera attach="shadow-camera" args={[-3, 3, 3, -3, 0.1, 15]} />
+      </directionalLight>
+
+      {/* Sky-500 rim light from behind for the neon halo silhouette */}
+      <pointLight
+        position={[3, -2, -3]}
+        intensity={isDark ? 2.0 : 1.0}
+        color="#0EA5E9"
+        distance={12}
       />
-      <LinkedRings />
+
+      <LinkedRings isDark={isDark} />
+
+      {/* Bloom is lighter in light mode so it doesn't blow out the ring shape */}
+      <EffectComposer multisampling={4}>
+        <Bloom
+          intensity={isDark ? 1.2 : 0.55}
+          luminanceThreshold={isDark ? 0.35 : 0.55}
+          luminanceSmoothing={0.6}
+          mipmapBlur
+          radius={isDark ? 0.7 : 0.45}
+        />
+      </EffectComposer>
     </Canvas>
   )
 }
